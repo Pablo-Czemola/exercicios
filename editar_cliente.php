@@ -71,7 +71,7 @@ $conn->close();
       <button type="submit">Atualizar</button>
     </form>
 
-    <a class="link-voltar" href="listar_clientes.php">← Voltar para a lista de clientes</a>
+    <a class="link-voltar" href="relatorio_clientes.php">← Voltar para a lista de clientes</a>
   </div>
 
   <?php include("footer.html"); ?>

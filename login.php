@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuario = $result->fetch_assoc();
         $_SESSION['id'] = $usuario['id'];
         $_SESSION['nome'] = $usuario['nome'];
-        header("Location: principal.php");
+        header("Location: inicio.php");
         exit;
     } else {
         $erro = "Email ou senha inválidos.";

@@ -59,7 +59,7 @@ if (isset($_GET['id'])) {
       <button type="submit">Atualizar</button>
     </form>
 
-    <a class="link-voltar" href="listar_mercadorias.php">← Voltar para lista</a>
+    <a class="link-voltar" href="relatorio_mercadorias.php">← Voltar para lista</a>
   </div>
 
   <?php include("footer.html"); ?>
