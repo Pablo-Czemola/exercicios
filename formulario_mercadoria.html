@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastrar Mercadoria</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastrar Mercadoria</h2>
+
+    <form action="cadastrar_mercadoria.php" method="post">
+      <label>Nome:</label>
+      <input type="text" name="nome" required>
+
+      <label>Marca:</label>
+      <input type="text" name="marca" required>
+
+      <label>Preço de Compra:</label>
+      <input type="number" step="0.01" name="preco_compra" required>
+
+      <label>Margem de Lucro (%):</label>
+      <input type="number" step="0.01" name="margem_lucro" required>
+
+      <label>Quantidade:</label>
+      <input type="number" name="quantidade" required>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <a class="link-voltar" href="listar_mercadorias.php">Ver Mercadorias</a>
+  </div>
+</body>
+</html>

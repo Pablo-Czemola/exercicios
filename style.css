@@ -1,0 +1,254 @@
+/* RESET BÁSICO */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* CONTAINER PADRÃO */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* TOPO - HEADER */
+header {
+  background: linear-gradient(to right, #2C96BF, #7E84F2);
+  padding: 20px 40px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #1A6F91;
+  padding: 10px 0;
+  border-radius: 5px;
+  min-width: 160px;
+  z-index: 10;
+}
+
+nav ul li:hover ul {
+  display: block;
+}
+
+nav ul li ul li a {
+  padding: 10px 20px;
+  display: block;
+}
+
+/* FOOTER */
+footer {
+  background-color: #2C96BF;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 60px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 0 0 10px 10px;
+}
+
+/* BOTOES */
+button, .botao, .link-voltar {
+  background-color: #2C96BF;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+button:hover, .botao:hover, .link-voltar:hover {
+  background-color: #1A6F91;
+}
+
+/* FORMULARIO */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus {
+  border-color: #2C96BF;
+  outline: none;
+}
+
+/* TABELA */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
+}
+
+table th {
+  background-color: #2C96BF;
+  color: white;
+  font-weight: 600;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #e1eaff;
+}
+
+/* MENSAGENS */
+.sucesso {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 12px 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.erro {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 12px 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  nav ul li ul {
+    position: static;
+    background-color: #2C96BF;
+  }
+
+  nav ul li ul li a {
+    padding-left: 30px;
+  }
+
+  .container {
+    margin: 20px 15px;
+    padding: 15px;
+  }
+
+  table th, table td {
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+}
+/* CENTRALIZAÇÃO DE BOTÕES (opcional) */
+.botoes-centralizados {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* AJUSTES EXTRAS PARA TABELAS E FORMULÁRIOS */
+form input,
+form select {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+form button,
+form .botao,
+form .link-voltar {
+  display: block;
+  margin: 20px auto 0 auto;
+  text-align: center;
+}
+
+
+.container h2,
+.container h1 {
+  margin-bottom: 20px;
+  color: #2C96BF;
+}
+
+/* TABELAS MAIS VISUAIS EM TELAS MAIORES */
+@media (min-width: 769px) {
+  table th, table td {
+    white-space: nowrap;
+  }
+}
