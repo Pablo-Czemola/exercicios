@@ -215,7 +215,7 @@ table tr:hover {
     padding: 10px 8px;
   }
 }
-/* CENTRALIZAÇÃO DE BOTÕES (opcional) */
+/* CENTRALIZAÇÃO DE BOTÕES */
 .botoes-centralizados {
   display: flex;
   justify-content: center;

@@ -1,5 +1,6 @@
 <?php
 include("topo.html");
+include("conexao.php");
 
 $conn = new mysqli("localhost", "root", "", "comercio");
 
@@ -25,6 +26,10 @@ if (isset($_GET['id'])) {
     include("footer.html");
     exit;
 }
+
+// Busca marcas para o select
+$sqlMarcas = "SELECT id_mar, nome_mar FROM marcas ORDER BY nome_mar ASC";
+$resultMarcas = $conexao->query($sqlMarcas);
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +50,18 @@ if (isset($_GET['id'])) {
       <input type="text" name="nome" value="<?php echo $mercadoria['nome']; ?>" required>
 
       <label>Marca:</label>
-      <input type="text" name="marca" value="<?php echo $mercadoria['marca']; ?>" required>
+      <select name="marca" required>
+        <option value="">Selecione a marca</option>
+        <?php
+        if ($resultMarcas->num_rows > 0) {
+            while ($marca = $resultMarcas->fetch_assoc()) {
+                echo "<option value='" . $marca['id_mar'] . "'>" . htmlspecialchars($marca['nome_mar']) . "</option>";
+            }
+        } else {
+            echo "<option value=''>Nenhuma marca cadastrada</option>";
+        }
+        ?>
+      </select>
 
       <label>Preço de Compra:</label>
       <input type="number" step="0.01" name="preco_compra" value="<?php echo $mercadoria['preco_compra']; ?>" required>
