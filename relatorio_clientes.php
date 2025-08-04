@@ -21,7 +21,7 @@ $result = $conn->query($sql);
 <body>
   <div class="container">
     <h2>Relatório de Clientes</h2>
-    <a class="botao" href="cadastrar_cliente.php">Novo Cadastro</a><br><br>
+    <a class="botao" href="cadastrar_usuario.php">Novo Cadastro</a><br><br>
 
     <?php if ($result->num_rows > 0): ?>
       <table>

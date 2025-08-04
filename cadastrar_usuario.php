@@ -9,28 +9,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $nome = $_POST['nome'];
     $cpf = $_POST['cpf'];
-    $email = $_POST['email'];
     $celular = $_POST['celular'];
     $rua = $_POST['rua'];
     $bairro = $_POST['bairro'];
     $cep = $_POST['cep'];
     $cidade = $_POST['cidade'];
-    $estado = $_POST['estado'];
+    $estado = $_POST['estado_id'];
 
     // Converte o valor textual para número: adm = 1, cliente = 2
     $tipo = ($tipo_texto === 'adm') ? 1 : 2;
 
-    // Criptografa a senha
-    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
     // Preparar e executar a inserção
-    $sql = "INSERT INTO usuarios (login, senha, tipo, nome, cpf, email, celular, rua, bairro, cep, cidade, estado) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO usuarios (login, senha, tipo, nome, cpf, celular, rua, bairro, cep, cidade, estado) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
     $stmt = mysqli_prepare($conexao, $sql);
 
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ssisssssssss", $login, $senha_hash, $tipo, $nome, $cpf, $email, $celular, $rua, $bairro, $cep, $cidade, $estado);
+        mysqli_stmt_bind_param($stmt, "ssissssssss",$login,$senha,$tipo,$nome,$cpf,$celular,$rua,$bairro,$cep,$cidade,$estado);
         if (mysqli_stmt_execute($stmt)) {
             $mensagem = "Usuário cadastrado com sucesso!";
         } else {
@@ -60,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <form method="post" action="cadastrar_usuario.php">
       <label>Login:</label>
-      <input type="text" name="login" required>
+      <input type="email" name="login" required>
 
       <label>Senha:</label>
       <input type="password" name="senha" required>
@@ -78,9 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       <label>CPF:</label>
       <input type="text" name="cpf" required>
-
-      <label>Email:</label>
-      <input type="email" name="email" required>
 
       <label>Celular:</label>
       <input type="text" name="celular" required>
