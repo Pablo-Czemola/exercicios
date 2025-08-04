@@ -11,14 +11,14 @@
   max-width: 900px;
   margin: 40px auto;
   padding: 20px;
-  background: #fff;
+  background: #c9d6ff;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
 /* TOPO - HEADER */
 header {
-  background: linear-gradient(to right, #2C96BF, #7E84F2);
+  background:#512da8;
   padding: 20px 40px;
   color: white;
   display: flex;
@@ -61,7 +61,7 @@ nav ul li ul {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #1A6F91;
+  background-color: #653dc2;
   padding: 10px 0;
   border-radius: 5px;
   min-width: 160px;
@@ -79,7 +79,7 @@ nav ul li ul li a {
 
 /* FOOTER */
 footer {
-  background-color: #2C96BF;
+  background-color: #512da8;
   color: white;
   text-align: center;
   padding: 15px 0;
@@ -91,7 +91,7 @@ footer {
 
 /* BOTOES */
 button, .botao, .link-voltar {
-  background-color: #2C96BF;
+  background-color: #512da8;
   color: white;
   border: none;
   padding: 10px 18px;
@@ -105,7 +105,7 @@ button, .botao, .link-voltar {
 }
 
 button:hover, .botao:hover, .link-voltar:hover {
-  background-color: #1A6F91;
+  background-color: #3e2180;
 }
 
 /* FORMULARIO */
@@ -130,7 +130,7 @@ form input {
 }
 
 form input:focus {
-  border-color: #2C96BF;
+  border-color: #512da8;
   outline: none;
 }
 
@@ -149,7 +149,7 @@ table th, table td {
 }
 
 table th {
-  background-color: #2C96BF;
+  background-color: #512da8;
   color: white;
   font-weight: 600;
 }
@@ -198,7 +198,7 @@ table tr:hover {
 
   nav ul li ul {
     position: static;
-    background-color: #2C96BF;
+    background-color: #512da8;
   }
 
   nav ul li ul li a {
@@ -243,7 +243,7 @@ form .link-voltar {
 .container h2,
 .container h1 {
   margin-bottom: 20px;
-  color: #2C96BF;
+  color: #512da8;
 }
 
 /* TABELAS MAIS VISUAIS EM TELAS MAIORES */
