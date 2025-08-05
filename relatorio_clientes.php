@@ -1,14 +1,10 @@
 <?php
 include("topo.html");
+include("conexao.php");
 
-$conn = new mysqli("localhost", "root", "", "comercio");
+$sql = " SELECT u.id, u.nome, u.cpf, u.login AS email, u.celular, u.rua, u.bairro, u.cep, u.cidade, e.sigla AS estado, u.tipo FROM usuarios u LEFT JOIN estados e ON u.estado = e.id ORDER BY u.nome";
 
-if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM clientes";
-$result = $conn->query($sql);
+$result = $conexao->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -23,31 +19,35 @@ $result = $conn->query($sql);
     <h2>Relatório de Clientes</h2>
     <a class="botao" href="cadastrar_usuario.php">Novo Cadastro</a><br><br>
 
-    <?php if ($result->num_rows > 0): ?>
+    <?php if ($result && $result->num_rows > 0): ?>
       <table>
         <tr>
           <th>Nome</th>
           <th>CPF</th>
-          <th>Email</th>
+          <th>Email (Login)</th>
           <th>Celular</th>
           <th>Rua</th>
           <th>Bairro</th>
           <th>CEP</th>
           <th>Cidade</th>
           <th>Estado</th>
+          <th>Tipo</th>
           <th>Ações</th>
         </tr>
         <?php while($row = $result->fetch_assoc()): ?>
           <tr>
-            <td><?= $row['nome'] ?></td>
-            <td><?= $row['cpf'] ?></td>
-            <td><?= $row['email'] ?></td>
-            <td><?= $row['celular'] ?></td>
-            <td><?= $row['rua'] ?></td>
-            <td><?= $row['bairro'] ?></td>
-            <td><?= $row['cep'] ?></td>
-            <td><?= $row['cidade'] ?></td>
-            <td><?= $row['estado'] ?></td>
+            <td><?= htmlspecialchars($row['nome']) ?></td>
+            <td><?= htmlspecialchars($row['cpf']) ?></td>
+            <td><?= htmlspecialchars($row['email']) ?></td>
+            <td><?= htmlspecialchars($row['celular']) ?></td>
+            <td><?= htmlspecialchars($row['rua']) ?></td>
+            <td><?= htmlspecialchars($row['bairro']) ?></td>
+            <td><?= htmlspecialchars($row['cep']) ?></td>
+            <td><?= htmlspecialchars($row['cidade']) ?></td>
+            <td><?= htmlspecialchars($row['estado']) ?></td>
+            <td>
+              <?= $row['tipo'] == 1 ? 'Administrador' : 'Cliente' ?>
+            </td>
             <td>
               <a href="editar_cliente.php?id=<?= $row['id'] ?>">Editar</a> |
               <a href="excluir_cliente.php?id=<?= $row['id'] ?>" onclick="return confirm('Deseja excluir?');">Excluir</a>
@@ -59,7 +59,7 @@ $result = $conn->query($sql);
       <p>Nenhum cliente cadastrado.</p>
     <?php endif; ?>
 
-    <?php $conn->close(); ?>
+    <?php $conexao->close(); ?>
   </div>
 
   <?php include("footer.html"); ?>
