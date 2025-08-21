@@ -1,4 +1,8 @@
 <?php
+include("valida_sessao.php");
+
+// Permite somente administrador (tipo = 1)
+verifica_tipo(1);
 include("topo.html");
 include("conexao.php");
 

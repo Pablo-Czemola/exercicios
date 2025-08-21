@@ -1,4 +1,8 @@
 <?php
+include("valida_sessao.php");
+
+// Permite somente administrador (tipo = 1)
+verifica_tipo(1);
 include("conexao.php");
 
 if (isset($_GET['id'])) {

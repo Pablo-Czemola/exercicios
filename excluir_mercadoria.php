@@ -1,4 +1,8 @@
 <?php
+include("valida_sessao.php");
+
+// Permite somente administrador (tipo = 1)
+verifica_tipo(1);
 $conn = new mysqli("localhost", "root", "", "comercio");
 if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);

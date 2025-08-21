@@ -1,4 +1,8 @@
 <?php
+include("valida_sessao.php");
+
+// Permite somente administrador (tipo = 1)
+verifica_tipo(1);
 include("topo.html");
 include("conexao.php");
 
@@ -12,14 +16,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $margem_lucro = $_POST['margem_lucro'];
     $quantidade = $_POST['quantidade'];
 
+    // Upload da imagem
+    $foto = null;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $pasta = 'imagens/';
+        $foto = basename($_FILES['foto']['name']);
+        $destino = $pasta . $foto;
+
+        if (!move_uploaded_file($_FILES['foto']['tmp_name'], $destino)) {
+            $mensagem = "Erro ao enviar a imagem.";
+            $foto = null;
+        }
+    }
+
     // Prepared statement para evitar SQL Injection
-    $stmt = $conexao->prepare("INSERT INTO mercadorias (nome, marca, preco_compra, margem_lucro, quantidade) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("siddi", $nome, $marca, $preco_compra, $margem_lucro, $quantidade);
+    if ($foto) {
+        $stmt = $conexao->prepare("INSERT INTO mercadorias (nome, marca, preco_compra, margem_lucro, quantidade, imagem) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("siddis", $nome, $marca, $preco_compra, $margem_lucro, $quantidade, $foto);
+    } else {
+        $stmt = $conexao->prepare("INSERT INTO mercadorias (nome, marca, preco_compra, margem_lucro, quantidade) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("siddi", $nome, $marca, $preco_compra, $margem_lucro, $quantidade);
+    }
 
     if ($stmt->execute()) {
         $mensagem = "Mercadoria cadastrada com sucesso!";
     } else {
         $mensagem = "Erro: " . $stmt->error;
+        if ($foto) unlink($destino); // Remove arquivo se deu erro
     }
     $stmt->close();
 }
@@ -44,7 +67,7 @@ $resultMarcas = $conexao->query($sqlMarcas);
       <p class="sucesso"><?= htmlspecialchars($mensagem) ?></p>
     <?php endif; ?>
 
-    <form action="cadastrar_mercadoria.php" method="post">
+    <form action="cadastrar_mercadoria.php" method="post" enctype="multipart/form-data">
       <label>Nome:</label>
       <input type="text" name="nome" required>
 
@@ -70,6 +93,9 @@ $resultMarcas = $conexao->query($sqlMarcas);
 
       <label>Quantidade:</label>
       <input type="number" name="quantidade" required>
+
+      <label>Imagem do Produto:</label>
+      <input type="file" name="foto" accept="image/*">
 
       <button type="submit">Cadastrar</button>
     </form>

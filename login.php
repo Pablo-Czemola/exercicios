@@ -14,7 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $usuario = $result->fetch_assoc();
         $_SESSION['id'] = $usuario['id'];
         $_SESSION['nome'] = $usuario['nome'];
-        header("Location: administração.php");
+        $_SESSION['tipo'] = $usuario['tipo']; // guarda o tipo na sessão também
+
+        // Redireciona conforme o tipo
+        if ($usuario['tipo'] == 2) {
+            header("Location: cliente_area.php");
+        } else {
+            header("Location: administração.php");
+        }
         exit;
     } else {
         $erro = "Email ou senha inválidos.";

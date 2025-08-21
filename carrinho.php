@@ -15,10 +15,18 @@ if (!$id_usuario) {
     exit;
 }
 
-// busca todas as mercadorias disponíveis com o nome da marca
-$sql = "SELECT m.*, ma.nome_mar 
-        FROM mercadorias m
-        LEFT JOIN marcas ma ON m.marca = ma.id_mar";
+// busca os itens do carrinho desse cliente com nome da marca e imagem
+$sql = "SELECT 
+            c.id_car,
+            m.nome AS produto,
+            ma.nome_mar AS marca_nome,
+            m.imagem,
+            c.quantidade,
+            (m.preco_compra * c.quantidade) AS valor
+        FROM carrinho c
+        INNER JOIN mercadorias m ON c.idmerc = m.id
+        LEFT JOIN marcas ma ON m.marca = ma.id_mar
+        WHERE c.id_usuario = '$id_usuario'";
 $result = $conexao->query($sql);
 ?>
 <!DOCTYPE html>
@@ -26,7 +34,7 @@ $result = $conexao->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Cliente</title>
+    <title>Meu Carrinho</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -34,7 +42,7 @@ $result = $conexao->query($sql);
 
     <div class="container">
         <h1>Bem-vindo, <?= htmlspecialchars($_SESSION['nome']) ?></h1>
-        <h2>Mercadorias disponíveis</h2>
+        <h2>Seu carrinho</h2>
 
         <?php if ($result && $result->num_rows > 0): ?>
             <table border="1" cellpadding="8" cellspacing="0">
@@ -42,31 +50,31 @@ $result = $conexao->query($sql);
                     <th>Imagem</th>
                     <th>Produto</th>
                     <th>Marca</th>
-                    <th>Preço</th>
-                    <th>Quantidade disponível</th>
+                    <th>Quantidade</th>
+                    <th>Valor</th>
                     <th>Ações</th>
                 </tr>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
                         <td>
                             <?php if (!empty($row['imagem'])): ?>
-                                <img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" alt="<?= htmlspecialchars($row['nome']) ?>" style="width:80px; height:auto;">
+                                <img src="imagens/<?= htmlspecialchars($row['imagem']) ?>" alt="<?= htmlspecialchars($row['produto']) ?>" style="width:80px; height:auto;">
                             <?php else: ?>
                                 Sem imagem
                             <?php endif; ?>
                         </td>
-                        <td><?= htmlspecialchars($row['nome']) ?></td>
-                        <td><?= htmlspecialchars($row['nome_mar']) ?></td>
-                        <td>R$ <?= number_format($row['preco_compra'], 2, ',', '.') ?></td>
+                        <td><?= htmlspecialchars($row['produto']) ?></td>
+                        <td><?= htmlspecialchars($row['marca_nome']) ?></td>
                         <td><?= $row['quantidade'] ?></td>
+                        <td>R$ <?= number_format($row['valor'], 2, ',', '.') ?></td>
                         <td>
-                            <a href="adicionar_carrinho.php?id=<?= $row['id'] ?>">Adicionar ao carrinho</a>
+                            <a href="delete_carrinho.php?id_car=<?= $row['id_car'] ?>" onclick="return confirm('Deseja remover este item do carrinho?')">Remover</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             </table>
         <?php else: ?>
-            <p>Não há mercadorias disponíveis no momento.</p>
+            <p>Seu carrinho está vazio.</p>
         <?php endif; ?>
     </div>
 

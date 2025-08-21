@@ -1,4 +1,8 @@
 <?php
+include("valida_sessao.php");
+
+// Permite somente administrador (tipo = 1)
+verifica_tipo(1);
 include("topo.html");
 include("conexao.php");
 
@@ -43,7 +47,7 @@ $resultMarcas = $conexao->query($sqlMarcas);
   <div class="container">
     <h2>Editar Mercadoria</h2>
 
-    <form action="atualizar_mercadoria.php" method="post">
+    <form action="atualizar_mercadoria.php" method="post" enctype="multipart/form-data">
       <input type="hidden" name="id" value="<?php echo $mercadoria['id']; ?>">
 
       <label>Nome:</label>
@@ -55,7 +59,8 @@ $resultMarcas = $conexao->query($sqlMarcas);
         <?php
         if ($resultMarcas->num_rows > 0) {
             while ($marca = $resultMarcas->fetch_assoc()) {
-                echo "<option value='" . $marca['id_mar'] . "'>" . htmlspecialchars($marca['nome_mar']) . "</option>";
+                $selected = ($marca['id_mar'] == $mercadoria['marca']) ? 'selected' : '';
+                echo "<option value='" . $marca['id_mar'] . "' $selected>" . htmlspecialchars($marca['nome_mar']) . "</option>";
             }
         } else {
             echo "<option value=''>Nenhuma marca cadastrada</option>";
@@ -71,6 +76,16 @@ $resultMarcas = $conexao->query($sqlMarcas);
 
       <label>Quantidade:</label>
       <input type="number" name="quantidade" value="<?php echo $mercadoria['quantidade']; ?>" required>
+
+      <label>Imagem Atual:</label><br>
+      <?php if(!empty($mercadoria['imagem'])): ?>
+        <img src="imagens/<?php echo $mercadoria['imagem']; ?>" alt="Imagem do Produto" style="width:120px;height:auto;"><br>
+      <?php else: ?>
+        <p>Nenhuma imagem cadastrada.</p>
+      <?php endif; ?>
+
+      <label>Alterar Imagem:</label>
+      <input type="file" name="imagem" accept="image/*">
 
       <button type="submit">Atualizar</button>
     </form>

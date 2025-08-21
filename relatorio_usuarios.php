@@ -1,4 +1,8 @@
 <?php
+include("valida_sessao.php");
+
+// Permite somente administrador (tipo = 1)
+verifica_tipo(1);
 include("topo.html");
 include("conexao.php");
 
@@ -16,7 +20,7 @@ $result = $conexao->query($sql);
 </head>
 <body>
   <div class="container">
-    <h2>Relatório de Clientes</h2>
+    <h2>Relatório de Usuários</h2>
     <a class="botao" href="cadastrar_usuario.php">Novo Cadastro</a><br><br>
 
     <?php if ($result && $result->num_rows > 0): ?>
